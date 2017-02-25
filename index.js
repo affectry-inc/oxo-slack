@@ -94,53 +94,7 @@ controller.hears('((?=.*waiting)(?=.*list)|.*(申請中|未承認).*一覧.*)',[
 controller.hears('challenge',['direct_message','direct_mention'],function(bot,message) {
   if (message.text.match(/^\//)) return; // Avoid slash_command
 
-  var cells = '|  `1`  |  `2`  |  X   |\n'
-            + '|  X   |  `5`  |  `6`  |\n'
-            + '|  O   |  O   |  X   |\n';
-  var reply = {
-    'text': '<@' + message.user + '> gets cell-1.',
-    'attachments': [{
-      'title': 'Now it\'s your turn. You are \'O\'.',
-      'text': cells,
-      'fallback': 'brhaaa',
-      'callback_id': 'sel_cell-game1',
-      'color': '#808080',
-      'mrkdwn_in': ['text'],
-      'fields': [
-        {
-          'title': 'Select a cell from buttons below.'
-        }
-      ],
-      'actions': [
-        {
-          'type': 'button',
-          'name': 'test_button1',
-          'text': '1'
-        },
-        {
-          'type': 'button',
-          'name': 'test_button2',
-          'text': '2'
-        },
-        {
-          'type': 'button',
-          'name': 'test_button3',
-          'text': '3'
-        },
-        {
-          'type': 'button',
-          'name': 'test_button4',
-          'text': '4'
-        },
-        {
-          'type': 'button',
-          'name': 'test_button9',
-          'text': '>'
-        }
-      ]
-    }]
-  };
-  bot.reply(message, reply);
+  ZangyoBot.startGame(bot, message);
 });
 
 controller.on('interactive_message_callback', function(bot, message) {
