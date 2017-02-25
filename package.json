@@ -1,0 +1,37 @@
+{
+  "name": "oxo",
+  "version": "1.0.0",
+  "description": "ox-game, so called \"Tic Tac Toe\" or \"Maru-Batsu\", for Slack",
+  "main": "index.js",
+  "engines": {
+    "node": "6.9.1",
+    "npm": "3.10.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/affectry-inc/oxo.git"
+  },
+  "keywords": [
+    "slack",
+    "bot",
+    "game",
+    "Tic Tac Toe",
+    "Maru Batu",
+    "Maru Batsu"
+  ],
+  "author": "xiz-tky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/affectry-inc/oxo/issues"
+  },
+  "homepage": "https://github.com/affectry-inc/oxo#readme",
+  "dependencies": {
+    "botkit": "^0.5.1",
+    "moment-timezone": "^0.5.11",
+    "monk": "^4.0.0",
+    "request": "^2.79.0"
+  }
+}
