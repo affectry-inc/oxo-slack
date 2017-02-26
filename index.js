@@ -115,7 +115,7 @@ controller.on('interactive_message_callback', function(bot, message) {
     if (ans[0] === 'cell') {
       ZangyoBot.mark(bot, message, ask[1], ans[1]);
     } else if (ans[0] === 'page'){
-      ZangyoBot.page(bot, message, ask[1], ans[1]);
+      ZangyoBot.page(bot, message, ask[1], (ans[1] * 1));
     }
   }
 });
@@ -138,9 +138,9 @@ controller.on('slash_command', function(bot, message) {
 
       break;
     case 'help':
-      var challenge_help = '`/ox challenge [@opponent]` starts a new game.';
-      var rank_help = '`/ox rank` shows a list of top rankers of your team.';
-      var help_message = 'Use `/ox` to play a game.\n Available commands are:'
+      var challenge_help = '`/oxo challenge [@opponent]` starts a new game.';
+      var rank_help = '`/oxo rankers` shows a list of top rankers of your team.';
+      var help_message = 'Use `/oxo` to play a game.\n Available commands are:'
         + '\n • ' + challenge_help + '\n • ' + rank_help;
       bot.replyPrivate(message, help_message);
       break;
