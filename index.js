@@ -25,7 +25,7 @@ if (!process.env.clientId || !process.env.clientSecret || !process.env.port) {
 var controller = Botkit.slackbot({
   // interactive_replies: true, // tells botkit to send button clicks into conversations
   hostname: '0.0.0.0',
-  storage: require('./lib/botkit-custom-mongo')({mongoUri: MongoUrl, collections: ['oxs']})
+  storage: require('./lib/botkit-custom-mongo')({mongoUri: MongoUrl, collections: ['games', 'summaries']})
 }).configureSlackApp(
   {
     clientId: process.env.clientId,
@@ -94,38 +94,28 @@ controller.hears('((?=.*waiting)(?=.*list)|.*(申請中|未承認).*一覧.*)',[
 controller.hears('challenge',['direct_message','direct_mention'],function(bot,message) {
   if (message.text.match(/^\//)) return; // Avoid slash_command
 
+  console.log(message.text);
+  if (!message.text.match(/\<\@[a-zA-Z0-9]+\>/g)) {
+    bot.reply(message, 'Choose your opponent. :hankey:');
+    return;
+  }
+
   ZangyoBot.startGame(bot, message);
 });
 
+/**
+ * ask: mark-[game_id]
+ * ans: (cell/page)-[#]
+ */
 controller.on('interactive_message_callback', function(bot, message) {
-  var ids = message.callback_id.split(/\-/);
-  var action = ids[0];
-  var item_id = ids[1];
-  var ans = message.actions[0].name;
+  var ask = message.callback_id.split(/\-/);
+  var ans = message.actions[0].name.split(/\-/);
 
-  if (action == 'delay_apply') {
-    if (ans == 'night') {
-      ZangyoBot.zangyoWizardDelay(bot, message);
-    } else if (ans == 'morning') {
-      ZangyoBot.morningWorkWizardDelay(bot, message);
-    } else if (ans == 'holiday') {
-      ZangyoBot.holidayWorkWizardDelay(bot, message);
-    }
-  } else if (action == 'apply') {
-    if (ans == 'apply') {
-      ZangyoBot.apply(item_id, bot, message);
-    } else if (ans == 'redo') {
-      ZangyoBot.redoApply(item_id, bot, message);
-    } else if (ans == 'cancel') {
-      ZangyoBot.cancelApply(item_id, bot, message);
-    }
-  } else if (action == 'approve') {
-    if (ans == 'approve') {
-      ZangyoBot.approve(item_id, bot, message);
-    } else if (ans == 'reject') {
-      ZangyoBot.rejectApprove(item_id, bot, message);
-    } else if (ans == 'reject-comment') {
-      ZangyoBot.rejectCommentApprove(item_id, bot, message);
+  if (ask[0] === 'mark') {
+    if (ans[0] === 'cell') {
+      ZangyoBot.mark(bot, message, ask[1], ans[1]);
+    } else if (ans[0] === 'page'){
+      ZangyoBot.page(bot, message, ask[1], ans[1]);
     }
   }
 });
