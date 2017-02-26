@@ -90,7 +90,7 @@ controller.hears('challenge',['direct_message','direct_mention'],function(bot,me
   if (message.text.match(/^\//)) return; // Avoid slash_command
 
   console.log(message.text);
-  if (!message.text.match(/\<\@[a-zA-Z0-9]+\>/g)) {
+  if (!message.text.match(/\<\@[a-zA-Z0-9]+(\||\>)/g)) {
     bot.reply(message, 'Choose your opponent. :hankey:');
     return;
   }
@@ -119,7 +119,7 @@ controller.on('slash_command', function(bot, message) {
   switch (message.text.split(' ')[0]) {
     case 'challenge':
       console.log('command text:' + message.text);
-      if (!message.text.match(/\<\@[a-zA-Z0-9\|]+\>/g)) {
+      if (!message.text.match(/\<\@[a-zA-Z0-9]+(\||\>)/g)) {
         bot.reply(message, 'Choose your opponent. :hankey:');
         return;
       }
