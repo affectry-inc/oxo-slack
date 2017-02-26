@@ -30,7 +30,6 @@
   "homepage": "https://github.com/affectry-inc/oxo#readme",
   "dependencies": {
     "botkit": "^0.5.1",
-    "moment-timezone": "^0.5.11",
     "monk": "^4.0.0",
     "request": "^2.79.0"
   }
