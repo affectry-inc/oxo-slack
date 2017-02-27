@@ -34,7 +34,7 @@ var controller = Botkit.slackbot({
   }
 );
 
-var SlackBot = require('./lib/bot')(controller);
+var SlackBot = require('./lib/slack_bot')(controller);
 
 controller.setupWebserver(process.env.port,function(err,webserver) {
   controller.createWebhookEndpoints(controller.webserver);
