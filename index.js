@@ -86,7 +86,7 @@ controller.on('rtm_close',function(bot) {
   // you may want to attempt to re-open
 });
 
-controller.hears('challenge',['direct_message','direct_mention'],function(bot,message) {
+controller.hears('(challenge|beat)',['direct_message','direct_mention'],function(bot,message) {
   if (message.text.match(/^\//)) return; // Avoid slash_command
 
   console.log(message.text);
@@ -128,9 +128,10 @@ controller.on('slash_command', function(bot, message) {
       break;
     case 'help':
       var challenge_help = '`/oxo challenge [@opponent]` starts a new game.';
+      var beat_help = '`/oxo beat [@opponent]` starts a new game also.';
       var rank_help = '`/oxo rankers` shows a list of top rankers of your team.';
       var help_message = 'Use `/oxo` to play a game.\n Available commands are:'
-        + '\n • ' + challenge_help + '\n • ' + rank_help;
+        + '\n • ' + challenge_help + '\n • ' + beat_help + '\n • ' + rank_help;
       bot.replyPrivate(message, help_message);
       break;
     default:
