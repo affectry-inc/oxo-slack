@@ -142,11 +142,10 @@ controller.on('slash_command', function(bot, message) {
       SlackBot.leaderboard(bot, message);
       break;
     case 'help':
-      var challenge_help = '`/oxo challenge [@opponent]` starts a new game.';
       var beat_help = '`/oxo beat [@opponent]` starts a new game also.';
-      var rank_help = '`/oxo leaderboard` shows a list of top rankers of your team.';
+      var rank_help = '`/oxo rank` shows a list of top rankers of your team.';
       var help_message = 'Use `/oxo` to play a game.\n Available commands are:'
-        + '\n • ' + challenge_help + '\n • ' + beat_help + '\n • ' + rank_help;
+        + '\n • ' + beat_help + '\n • ' + rank_help;
       bot.replyPrivate(message, help_message);
       break;
     default:
