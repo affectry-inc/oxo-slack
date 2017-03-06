@@ -99,6 +99,12 @@ controller.hears('(challenge|beat)',['direct_message','direct_mention'],function
   SlackBot.startGame(bot, message);
 });
 
+controller.hears('(rank|leaderboard)',['direct_message','direct_mention'],function(bot,message) {
+  if (message.text.match(/^\//)) return; // Avoid slash_command
+
+  SlackBot.leaderboard(bot, message);
+});
+
 /**
  * ask: mark-[game_id]
  * ans: (cell/page)-[#]
@@ -119,6 +125,7 @@ controller.on('interactive_message_callback', function(bot, message) {
 controller.on('slash_command', function(bot, message) {
   switch (message.text.split(' ')[0]) {
     case 'challenge':
+    case 'beat':
       if (message.text.match(/\s+(me)\s*$/)) {
         message.text += ' <@' + message.user + '>';
       } else if (!message.text.match(/\<\@[a-zA-Z0-9]+(\||\>)/g)) {
@@ -128,10 +135,16 @@ controller.on('slash_command', function(bot, message) {
 
       SlackBot.startGame(bot, message);
       break;
+    case 'rank':
+    case 'rankers':
+    case 'ranking':
+    case 'leaderboard':
+      SlackBot.leaderboard(bot, message);
+      break;
     case 'help':
       var challenge_help = '`/oxo challenge [@opponent]` starts a new game.';
       var beat_help = '`/oxo beat [@opponent]` starts a new game also.';
-      var rank_help = '`/oxo rankers` shows a list of top rankers of your team.';
+      var rank_help = '`/oxo leaderboard` shows a list of top rankers of your team.';
       var help_message = 'Use `/oxo` to play a game.\n Available commands are:'
         + '\n • ' + challenge_help + '\n • ' + beat_help + '\n • ' + rank_help;
       bot.replyPrivate(message, help_message);
