@@ -32,5 +32,8 @@
     "botkit": "^0.5.1",
     "monk": "^4.0.0",
     "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0"
   }
 }
