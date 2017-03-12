@@ -14,7 +14,7 @@
   After you've added the app, try talking to your bot!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+require('dotenv').config();
 
 var Botkit = require('botkit');
 var MongoUrl = process.env.MONGODB_URI || 'mongodb://localhost:27017/oxo';

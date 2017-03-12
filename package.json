@@ -30,10 +30,9 @@
   "homepage": "https://github.com/affectry-inc/oxo#readme",
   "dependencies": {
     "botkit": "^0.5.1",
+    "dotenv": "^4.0.0",
     "monk": "^4.0.0",
     "request": "^2.79.0"
   },
-  "devDependencies": {
-    "dotenv": "^4.0.0"
-  }
+  "devDependencies": {}
 }
