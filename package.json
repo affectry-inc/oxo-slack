@@ -4,10 +4,11 @@
   "description": "ox-game, so called \"Tic Tac Toe\" or \"Maru-Batsu\", for Slack",
   "main": "index.js",
   "engines": {
-    "node": "6.9.1",
-    "npm": "3.10.8"
+    "node": "6.10.0",
+    "npm": "3.10.10"
   },
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,7 +31,6 @@
   "homepage": "https://github.com/affectry-inc/oxo#readme",
   "dependencies": {
     "botkit": "^0.5.1",
-    "dotenv": "^4.0.0",
     "monk": "^4.0.0",
     "request": "^2.79.0"
   },

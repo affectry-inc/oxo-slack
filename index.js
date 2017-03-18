@@ -4,7 +4,7 @@
     -> https://api.slack.com/applications/new
     -> Add the Redirect URI: https://${APP_NAME}.herokuapp.com/oauth
   Deply and run your app on Heroku.
-    -> Add Config Vars on the Heroku app setting page: clientId, clientSecret
+    -> Add Config Vars on the Heroku app setting page: CLIENT_ID, CLIENT_SECRET
     -> Deploy and run on Heroku.
   Set RequestURL on Slack.
     -> Add the RequesteURL of Interactive Message: https://${APP_NAME}.herokuapp.com/slack/receive
@@ -14,13 +14,11 @@
   After you've added the app, try talking to your bot!
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-require('dotenv').config();
-
 var Botkit = require('botkit');
-var MongoUrl = process.env.MONGODB_URI || 'mongodb://localhost:27017/oxo';
+var MongoUrl = process.env.MONGODB_URI || 'mongodb://db:27017/oxo';
 
-if (!process.env.clientId || !process.env.clientSecret || !process.env.port) {
-  console.log('Error: Specify clientId clientSecret and port in environment');
+if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET || !process.env.PORT) {
+  console.log('Error: Specify CLIENT_ID CLIENT_SECRET and PORT in environment');
   process.exit(1);
 }
 
@@ -30,15 +28,15 @@ var controller = Botkit.slackbot({
   storage: require('./lib/botkit-custom-mongo')({mongoUri: MongoUrl, collections: ['games', 'summaries']})
 }).configureSlackApp(
   {
-    clientId: process.env.clientId,
-    clientSecret: process.env.clientSecret,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
     scopes: ['bot','commands'],
   }
 );
 
 var SlackBot = require('./lib/slack_bot')(controller);
 
-controller.setupWebserver(process.env.port,function(err,webserver) {
+controller.setupWebserver(process.env.PORT,function(err,webserver) {
   controller.createWebhookEndpoints(controller.webserver);
 
   controller.createOauthEndpoints(controller.webserver,function(err,req,res) {
